@@ -3,17 +3,30 @@ import { TouchableOpacity } from 'react-native';
 import { Touchable } from 'react-native';
 import { Text, StyleSheet, View, Button } from 'react-native';
 
-const HomeScreen = (props) => {
+const HomeScreen = ({navigation}) => {
+
   return (
     <View>
       <Text style={styles.text}>Danny's HomeScreen</Text>
       <Button 
         title='Go to Components Demo'
-        onPress={() => props.navigation.navigate('Components')}
+        onPress={() => navigation.navigate('Components')}
       />
       <Button 
         title="Go to List Demo"
-        onPress={() => props.navigation.navigate('List')}
+        onPress={() => navigation.navigate('List')}
+      />
+      <Button 
+        title="Image Screen"
+        onPress={() => navigation.navigate('Image')}
+      />
+      <Button 
+        title="Go to Counter Demo"
+        onPress={() => navigation.navigate('Counter')}
+      />
+      <Button 
+        title="Go to Color Screen"
+        onPress={() => navigation.navigate('ColorScreen')}
       />
     </View>
   );
