@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,19 @@ import { Context } from '../context/BlogContext';
 import { Feather } from '@expo/vector-icons';
 
 const IndexScreen = ({ navigation }) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+
+  useEffect(() => {
+    getBlogPosts();
+    //! below re-fetches data once we return to the screen
+    const listener = navigation.addListener('didFocus', () => {
+      getBlogPosts();
+    });
+    //! returning a function only gets invoked when we demount the screen 
+    return () => {
+      listener.remove();
+    }
+  }, []);
 
   return (
     <View>
@@ -39,13 +51,13 @@ const IndexScreen = ({ navigation }) => {
   );
 };
 
-IndexScreen.navigationOptions = ({navigation}) => {
+IndexScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate('Create')}>
         <Feather name="plus" size={30} />
       </TouchableOpacity>
-    ),
+    )
   };
 };
 
